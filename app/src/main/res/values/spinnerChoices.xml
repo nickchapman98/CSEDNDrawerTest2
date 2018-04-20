@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="FoodItems">
+        <item>Beef Lasagna</item>
+        <item>Jacket Potato</item>
+        <item>Chicken Salad</item>
+        <item>Chicken Stir-fry</item>
+    </string-array>
+    <string-array name="ExerciseItems">
+        <item>10 minutes cardio</item>
+        <item>20 minutes cardio</item>
+        <item>30 minutes cardio</item>
+    </string-array>
+</resources>

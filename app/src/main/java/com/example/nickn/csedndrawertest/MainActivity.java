@@ -13,8 +13,10 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public UI theUI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        theUI = new UI();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,25 +72,15 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.content_frame
                             , new Home())
                     .commit();
-        } else if (id == R.id.nav_addFood) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame
-                            , new AddFood())
-                    .commit();
-        } else if (id == R.id.nav_addExercise) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame
-                            , new AddExercise())
-                    .commit();
-        } else if (id == R.id.nav_WeightTracker) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame
-                            , new WeightTracker())
-                    .commit();
         } else if (id == R.id.nav_profile) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame
                             , new ProfileScreen())
+                    .commit();
+        } else if (id == R.id.nav_progress) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame
+                            , new WeightTracker())
                     .commit();
         }
 

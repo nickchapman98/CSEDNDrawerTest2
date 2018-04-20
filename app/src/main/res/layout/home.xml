@@ -1,18 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/CaloriesIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/CaloriesLeft"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/CaloriesLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/CalorieGoal"
+        android:layout_marginEnd="64dp"
+        android:layout_alignParentRight="true"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/CalorieGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="70dp"
+        android:layout_alignParentLeft="true"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/CILabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/CGLabel"
+        android:layout_centerHorizontal="true"
+        android:text="Calories In"
+        android:layout_centerInParent="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/CLLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/CGLabel"
+        android:layout_marginEnd="15dp"
+        android:text="Calories Left"
+        android:layout_alignParentRight="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
     <Button
         android:id="@+id/addFoodButton"
-        android:layout_width="275dp"
+        android:layout_width="match_parent"
         android:layout_height="138dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="166dp"
+        android:layout_marginTop="118dp"
         android:text="Add Food"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:layout_editor_absoluteX="136dp"
         tools:layout_editor_absoluteY="277dp" />
+
+    <Button
+        android:id="@+id/addExerciseButton"
+        android:layout_width="match_parent"
+        android:layout_height="138dp"
+        android:layout_below="@+id/addFoodButton"
+        android:layout_centerHorizontal="true"
+        android:text="Add Exercise"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="277dp" />
+
+    <TextView
+        android:id="@+id/CGLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="36dp"
+        android:text="Calorie Goal"
+        android:layout_alignParentLeft="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
 </RelativeLayout>
