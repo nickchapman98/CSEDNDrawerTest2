@@ -16,6 +16,8 @@ public class UI	{
     String userRead;
     String weightRead;
 
+    String path = "/sdcard/CSV/";
+
     public static void main(String[] args){
         UI textInterface = new UI();
         textInterface.startUI();
@@ -28,14 +30,14 @@ public class UI	{
         c = new Calories();
         reader  = new CSVReader();
         writer = new CSVWriter();
-        userRead = "/sdcard/CSV/users.csv";
-        weightRead = "/sdcard/CSV/weight.csv";
+        userRead = path + "users.csv";
+        weightRead = path + "weight.csv";
         u = reader.readUsers(userRead);
     }
 
     private void startUI(){
 
-        this.u = reader.readUsers("/sdcard/CSV/user.csv");
+        this.u = reader.readUsers(path + "users.csv");
 
         BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
 
@@ -97,7 +99,7 @@ public class UI	{
 
     //test method to check the CSVReader code actually works
     private void printAllEntries(){
-        ArrayList<Entry> allEntries = reader.readEntries("/sdcard/CSV/entries.csv");
+        ArrayList<Entry> allEntries = reader.readEntries(path + "entries.csv");
         for(int i = 0; i<allEntries.size();i++){
             allEntries.get(i).print();
         }
@@ -157,7 +159,7 @@ public class UI	{
             System.out.println("Please input goal");
             goal = Integer.parseInt(br.readLine());
             writer.addUser(name, height, dob, gender, weight, goal);
-            u = reader.readUsers("/sdcard/CSV/users.csv");
+            u = reader.readUsers(path + "users.csv");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -326,25 +328,25 @@ public class UI	{
     }
 
     public int weightOnDay(String Date){
-        return reader.weightAtDate("/sdcard/CSV/weight.csv", Date);
+        return reader.weightAtDate(path + "weight.csv", Date);
     }
 
     public ArrayList<Meal> Meals(){
-        return reader.readMeals("/sdcard/CSV/meal.csv");
+        return reader.readMeals(path + "meal.csv");
     }
 
     public void addMeal(String name, int calories){
-        writer.addMeal("/sdcard/CSV/meal.csv",name, calories);
+        writer.addMeal(path + "meal.csv",name, calories);
         writer.addEntry(3, calories);
     }
 
     public void addExercise(String name, int calories){
-        writer.addMeal("/sdcard/CSV/exercise.csv",name, calories);
+        writer.addMeal(path + "exercise.csv",name, calories);
         writer.addEntry(3, calories);
     }
 
     public ArrayList<Meal> Exercises(){
-        return reader.readMeals("/sdcard/CSV/exercise.csv");
+        return reader.readMeals(path + "exercise.csv");
     }
     
     public User getProfile(){

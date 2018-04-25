@@ -34,7 +34,7 @@ public class User {
         this.dob = dob;
 
         //cacualtes age from dob
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Calendar c = Calendar.getInstance();
         String date = sdf.format(c.getTime());
         this.age = ageCalc(dob, date);

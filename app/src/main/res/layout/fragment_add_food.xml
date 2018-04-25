@@ -5,9 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".AddFood">
 
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/calorieEntry"
+        android:layout_toEndOf="@+id/calorieEntry"
+        android:text="calories"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
     <android.support.design.widget.TextInputEditText
         android:id="@+id/calorieEntry"
-        android:layout_width="match_parent"
+        android:layout_width="217dp"
         android:layout_height="54dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"

@@ -9,6 +9,15 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/calorieBox"
+        android:layout_toEndOf="@+id/calorieBox"
+        android:text="calories burned"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
@@ -46,11 +55,10 @@
 
     <android.support.design.widget.TextInputEditText
         android:id="@+id/calorieBox"
-        android:layout_width="match_parent"
+        android:layout_width="222dp"
         android:layout_height="54dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="200dp"
+        android:layout_below="@+id/textInputEditText2"
         android:hint="Enter calories burned"
         android:inputType="number"
         android:selectAllOnFocus="false"
@@ -64,4 +72,5 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="188dp"
         android:text="ADD EXERCISE" />
+
 </RelativeLayout>

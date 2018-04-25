@@ -122,8 +122,8 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="204dp"
+        android:layout_alignBaseline="@+id/heightInput"
+        android:layout_marginStart="0dp"
         android:layout_toEndOf="@+id/heightInput"
         android:text="cm"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />

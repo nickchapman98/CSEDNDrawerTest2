@@ -1,6 +1,8 @@
 package com.example.nickn.csedndrawertest;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class ProfileScreen extends Fragment{
 
@@ -39,6 +42,7 @@ public class ProfileScreen extends Fragment{
             public void onClick(View view) {
                 new UI().addProfile(nameInput.getText().toString(), genderSpinner.getSelectedItem().toString().toLowerCase(), Integer.parseInt(heightInput.getText().toString()),
                         Integer.parseInt(weightInput.getText().toString()), dobInput.getText().toString(), Integer.parseInt(goalWeightInput.getText().toString()));
+                Toast.makeText(getContext(), "Profile updated.", Toast.LENGTH_SHORT).show();
             }
         });
 

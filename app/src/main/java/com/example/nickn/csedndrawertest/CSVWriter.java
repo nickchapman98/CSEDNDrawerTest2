@@ -10,6 +10,7 @@ public class CSVWriter	{
 
     FileWriter entryWriter;
     FileWriter userWriter;
+    String path = "/sdcard/CSV/";
 
     public CSVWriter(){
 
@@ -17,7 +18,7 @@ public class CSVWriter	{
 
     public void addEntry(int type, int calories){
         try {
-            entryWriter = new FileWriter(new File("/sdcard/CSV/entries.csv"),true);
+            entryWriter = new FileWriter(new File(path + "entries.csv"),true);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Calendar c = Calendar.getInstance();
             String date = sdf.format(c.getTime());
@@ -34,7 +35,7 @@ public class CSVWriter	{
      * Now not really needed I guess?*/
     public void addUser(String name, int height, String age, String sex, int weight, int targetWeight){
         try{
-            userWriter = new FileWriter(new File("/sdcard/CSV/users.csv"), true);
+            userWriter = new FileWriter(new File(path + "users.csv"), true);
             userWriter.write("\n"+ name + "," + sex + "," + height + "," + weight + "," + age + "," +targetWeight);
             System.out.println("New user written to file");
             userWriter.close();
@@ -46,7 +47,7 @@ public class CSVWriter	{
 
     public void addWeight(int weight){
         try{
-            userWriter = new FileWriter(new File("/sdcard/CSV/weight.csv"), true);
+            userWriter = new FileWriter(new File(path + "weight.csv"), true);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Calendar c = Calendar.getInstance();
             String date = sdf.format(c.getTime());

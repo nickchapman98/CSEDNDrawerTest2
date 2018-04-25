@@ -12,8 +12,10 @@ import java.util.ArrayList;
 
 public class CSVReader
 {
+    String path = "/sdcard/CSV/";
+
     /*TODO: implement readers for the users.csv file*/
-    String csvFile = "/sdcard/CSV/entries.csv";
+    String csvFile = path + "entries.csv";
     String line = "";
     String csvSplit = ",";
 
@@ -81,7 +83,7 @@ public class CSVReader
      */
     public ArrayList<Entry> SearchFor(String field, String value){
         ArrayList<Entry> allFound = new ArrayList<Entry>();
-        ArrayList<Entry> allEntries = readEntries("/sdcard/CSV/entries.csv");
+        ArrayList<Entry> allEntries = readEntries(path + "entries.csv");
         for(int i = 0; i<allEntries.size();i++){
             Entry current = allEntries.get(i);
             switch(field){

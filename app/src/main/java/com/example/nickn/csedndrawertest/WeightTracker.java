@@ -118,6 +118,7 @@ public class WeightTracker extends Fragment{
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         scaleSpinner.setAdapter(adapter2);
+
         graph = (GraphView) getView().findViewById(R.id.graph);
 
         ArrayList<Meal> graphPoints = theUI.graph(true, 7);
