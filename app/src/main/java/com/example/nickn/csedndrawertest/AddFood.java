@@ -34,7 +34,7 @@ public class AddFood extends Fragment{
             public void onClick(View view) {
                 int calories = 0;
                 calories = Integer.parseInt(calorieEntry.getText().toString());
-                new UI().addFood(calories, "BREAKFAST");
+                new UI().addFood(calories);
             }
         });
 

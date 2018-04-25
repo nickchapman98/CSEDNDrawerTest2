@@ -11,4 +11,17 @@
         <item>20 minutes cardio</item>
         <item>30 minutes cardio</item>
     </string-array>
+    <string-array name="GenderOptions">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="graphScales">
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+    <string-array name="graphTypes">
+        <item>Weight View</item>
+        <item>Calorie View</item>
+    </string-array>
 </resources>

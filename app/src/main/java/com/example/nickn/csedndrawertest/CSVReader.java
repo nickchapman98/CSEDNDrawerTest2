@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CSVReader
 {
     /*TODO: implement readers for the users.csv file*/
-    String csvFile = "src/entries.csv";
+    String csvFile = "/sdcard/CSV/entries.csv";
     String line = "";
     String csvSplit = ",";
 
@@ -81,7 +81,7 @@ public class CSVReader
      */
     public ArrayList<Entry> SearchFor(String field, String value){
         ArrayList<Entry> allFound = new ArrayList<Entry>();
-        ArrayList<Entry> allEntries = readEntries("src/entries.csv");
+        ArrayList<Entry> allEntries = readEntries("/sdcard/CSV/entries.csv");
         for(int i = 0; i<allEntries.size();i++){
             Entry current = allEntries.get(i);
             switch(field){
@@ -108,10 +108,54 @@ public class CSVReader
         return allFound;
     }
 
-    public User readUser(String toRead)
+    public User readUsers(String toRead)
+{
+
+    User currentUser = new User();
+
+
+    try
     {
-    	
-        User u = new User();
+        BufferedReader br = new BufferedReader(new FileReader(toRead));
+        int iteration = 0;
+        while ((line = br.readLine()) != null)
+        {
+            // If statement prevents headers of csv file from being displayed.
+            if (iteration == 0)
+            {
+                iteration++;
+            }
+            else if(!line.isEmpty())
+            {
+                String[] fields = line.split(csvSplit);
+                int userHeight = Integer.parseInt(fields[2]);
+                int userWeight = Integer.parseInt(fields[3]);
+                int targetWeight = Integer.parseInt(fields[5]);
+                currentUser = new User(fields[0],userHeight, fields[4],userWeight, fields[1], targetWeight);
+            }
+        }
+
+        br.close();
+        return currentUser;
+
+
+    }
+    catch (FileNotFoundException e)
+    {
+        e.printStackTrace();
+        return null;
+    }
+    catch (IOException e)
+    {
+        e.printStackTrace();
+        return null;
+    }
+}
+
+    public ArrayList<Weight> readWeight(String toRead)
+    {
+        ArrayList<Weight> allWeights = new ArrayList<Weight>();
+
         try
         {
             BufferedReader br = new BufferedReader(new FileReader(toRead));
@@ -126,19 +170,14 @@ public class CSVReader
                 else
                 {
                     String[] fields = line.split(csvSplit);
-                    String name = fields[0];
-                    String gender = fields[1];
-                    int userHeight = Integer.parseInt(fields[2]);
-                    int userWeight = Integer.parseInt(fields[3]);
-                    int userAge = Integer.parseInt(fields[4]);
-                    int userTargetWeight = Integer.parseInt(fields[5]);
-                    String userTargetTime = fields[6];
-                    u = new User(name, gender, userHeight, userWeight, userAge, userTargetWeight, userTargetTime);
+                    int weight = Integer.parseInt(fields[0]);
+
+                    allWeights.add(new Weight(weight, fields[1]));
                 }
             }
 
             br.close();
-            return u;
+            return allWeights;
 
 
         }
@@ -153,6 +192,61 @@ public class CSVReader
             return null;
         }
     }
+
+    public int weightAtDate(String toRead, String Date){
+        ArrayList<Weight> allWeights = readWeight(toRead);
+        int weight = 0;
+        for (int i=0; i<allWeights.size(); i++){
+            if (allWeights.get(i).getDate().equals(Date)) {
+                weight = allWeights.get(i).getWeight();
+            }
+        }
+        return weight;
+    }
+
+
+    //used for reading meal or exercise
+    public ArrayList<Meal> readMeals(String toRead)
+    {
+        ArrayList<Meal> allMeals = new ArrayList<Meal>();
+
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader(toRead));
+            int iteration = 0;
+            while ((line = br.readLine()) != null)
+            {
+                // If statement prevents headers of csv file from being displayed.
+                if (iteration == 0)
+                {
+                    iteration++;
+                }
+                else
+                {
+                    String[] fields = line.split(csvSplit);
+                    int calories = Integer.parseInt(fields[1]);
+
+                    allMeals.add(new Meal(fields[0], calories));
+                }
+            }
+
+            br.close();
+            return allMeals;
+
+
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public static void main(String[] args)
     {
