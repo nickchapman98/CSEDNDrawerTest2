@@ -21,6 +21,8 @@ public class AddExercise extends Fragment {
     TextInputEditText calorieBox;
     View myView;
     Spinner spinner;
+    UI theUI = new UI();
+    TextInputEditText exerciseEntry;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,20 +33,27 @@ public class AddExercise extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.fragment_add_exercise, container, false);
-
         calorieBox = (TextInputEditText) myView.findViewById(R.id.calorieBox);
-
+        exerciseEntry = (TextInputEditText) myView.findViewById(R.id.ExerciseEntry);
         Button SubmitExercise = (Button) myView.findViewById(R.id.addExerciseButton);
         SubmitExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int calories = 0;
-                calories = Integer.parseInt(calorieBox.getText().toString());
-                new UI().addFood(calories *-1);
-                Toast.makeText(getContext(), "Exercise added.", Toast.LENGTH_SHORT).show();
+                if (exerciseEntry.getText().toString().equals("")) {
+                    calories = Integer.parseInt(calorieBox.getText().toString());
+                    theUI.addFood(calories * -1);
+                    Toast.makeText(getContext(), "Exercise added.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Existing exercise used.", Toast.LENGTH_SHORT).show();
+                } else {
+                    calories = Integer.parseInt(calorieBox.getText().toString());
+                    theUI.addFood(calories * -1);
+                    theUI.addExercise(exerciseEntry.getText().toString(), calories);
+                    Toast.makeText(getContext(), "Exercise added.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "New exercise saved for future use.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
 
 
         return myView;
@@ -57,7 +66,7 @@ public class AddExercise extends Fragment {
         final ArrayList<Meal> exercises = new UI().Exercises();
         ArrayList<String> theExercises = new ArrayList<String>();
 
-        for (int i=0; i<exercises.size(); i++) {
+        for (int i = 0; i < exercises.size(); i++) {
             theExercises.add(exercises.get(i).getName());
         }
 
@@ -73,11 +82,12 @@ public class AddExercise extends Fragment {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
                 // TODO Auto-generated method stub
-                String  mselection=spinner.getSelectedItem().toString();
-                Toast.makeText(getContext(), "Selected "+ mselection, Toast.LENGTH_SHORT).show();
+                String mselection = spinner.getSelectedItem().toString();
+                Toast.makeText(getContext(), "Selected " + mselection, Toast.LENGTH_SHORT).show();
                 int calorieAmount = exercises.get(spinner.getSelectedItemPosition()).getCalories();
                 calorieBox.setText(String.valueOf(calorieAmount));
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub

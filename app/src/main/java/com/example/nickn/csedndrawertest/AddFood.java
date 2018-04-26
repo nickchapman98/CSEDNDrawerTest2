@@ -22,7 +22,8 @@ public class AddFood extends Fragment{
     TextInputEditText calorieEntry;
     View myView;
     Spinner spinner;
-
+    TextInputEditText foodEntry;
+    UI theUI = new UI();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,18 +34,27 @@ public class AddFood extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.fragment_add_food, container, false);
 
+        foodEntry = (TextInputEditText) myView.findViewById(R.id.FoodEntry);
         calorieEntry = (TextInputEditText) myView.findViewById(R.id.calorieEntry);
+
 
         Button SubmitFood = (Button) myView.findViewById(R.id.submitFoodButton);
         SubmitFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 int calories = 0;
-                calories = Integer.parseInt(calorieEntry.getText().toString());
-                new UI().addFood(calories);
-                Toast.makeText(getContext(), "Food added.", Toast.LENGTH_SHORT).show();
-
+                if (foodEntry.getText().toString().equals("")) {
+                    calories = Integer.parseInt(calorieEntry.getText().toString());
+                    theUI.addFood(calories);
+                    Toast.makeText(getContext(), "Food added.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Existing meal used.", Toast.LENGTH_SHORT).show();
+                } else {
+                    calories = Integer.parseInt(calorieEntry.getText().toString());
+                    theUI.addFood(calories);
+                    theUI.addMeal(foodEntry.getText().toString(), calories);
+                    Toast.makeText(getContext(), "Food added.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "New meal saved for future use.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -43,7 +43,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <android.support.design.widget.TextInputEditText
-        android:id="@+id/textInputEditText2"
+        android:id="@+id/ExerciseEntry"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_alignParentStart="true"
@@ -58,7 +58,7 @@
         android:layout_width="222dp"
         android:layout_height="54dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textInputEditText2"
+        android:layout_below="@+id/ExerciseEntry"
         android:hint="Enter calories burned"
         android:inputType="number"
         android:selectAllOnFocus="false"
