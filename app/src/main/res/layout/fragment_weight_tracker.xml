@@ -5,13 +5,24 @@
     android:layout_height="match_parent"
     tools:context=".AddExercise">
 
+    <TextView
+        android:id="@+id/motivationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="182dp"
+        android:layout_marginStart="18dp"
+        android:text="You've "
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
     <Spinner
         android:id="@+id/changeType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="190dp"
+        android:layout_marginBottom="130dp"
         android:dropDownWidth="150dp" />
 
     <Spinner
@@ -20,38 +31,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="123dp"
+        android:layout_marginBottom="92dp"
         android:dropDownWidth="150dp" />
 
     <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView17"
-        android:layout_marginStart="-152dp"
-        android:layout_toEndOf="@+id/currentWeight"
-        android:text="kg"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-    <TextView
         android:id="@+id/currentWeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textView17"
-        android:layout_marginEnd="152dp"
-        android:text="70"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="23dp"
-        android:text="Current weight:"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:text="70"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <com.jjoe64.graphview.GraphView
@@ -68,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="22dp"
         android:text="Update Graph" />
 
 </RelativeLayout>

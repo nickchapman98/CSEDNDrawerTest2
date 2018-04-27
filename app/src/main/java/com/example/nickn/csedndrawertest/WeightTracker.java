@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class WeightTracker extends Fragment{
     View myView;
@@ -29,6 +37,7 @@ public class WeightTracker extends Fragment{
     Spinner scaleSpinner;
     LineGraphSeries<DataPoint> series;
     LineGraphSeries<DataPoint> series2;
+    TextView MotivationText;
 
     @Nullable
     @Override
@@ -36,16 +45,19 @@ public class WeightTracker extends Fragment{
         myView = inflater.inflate(R.layout.fragment_weight_tracker, container, false);
 
         currentWeight = (TextView) myView.findViewById(R.id.currentWeight);
-        currentWeight.setText(String.valueOf(theUI.getProfile().getWeight()));
+        currentWeight.setText("Current weight: " + String.valueOf(theUI.getProfile().getWeight()) + "kg");
         changeGraph = (Button) myView.findViewById(R.id.updateGraph);
         changeGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentWeight.setText("Current weight: " + String.valueOf(theUI.getProfile().getWeight()) + "kg");
                 boolean isWeightType = false;
                 if (typeSpinner.getSelectedItemPosition() == 0) {
                     isWeightType = true;
+                    MotivationText.setVisibility(View.INVISIBLE);
                 } else if (typeSpinner.getSelectedItemPosition() == 1) {
                     isWeightType = false;
+                    MotivationText.setVisibility(View.VISIBLE);
                 }
 
                 int noOfDays = 0;
@@ -64,8 +76,6 @@ public class WeightTracker extends Fragment{
                 for (int i = graphPoints.size()-1; i >= 0; i--) {
                     items[i] = graphPoints.get(i).getCalories();
                     dp[graphPoints.size()-i-1] = new DataPoint(graphPoints.size()-i-1, items[i]);
-                    System.out.println(i + " " + items[i]);
-                    System.out.println(graphPoints.size());
                 }
 
                 series = new LineGraphSeries<>(dp);
@@ -87,10 +97,68 @@ public class WeightTracker extends Fragment{
                 graph.addSeries(series);
                 graph.addSeries(series2);
 
+                GridLabelRenderer gridLabel = graph.getGridLabelRenderer();
+                gridLabel.setHorizontalAxisTitle("Days");
+
                 graph.getViewport().setMinX(0);
                 graph.getViewport().setMaxX(noOfDays-1);
 
                 graph.getViewport().setXAxisBoundsManual(true);
+
+                boolean losingWeight = false;
+
+                if (theUI.getProfile().getWeight() > theUI.getProfile().getTargetWeight()) {
+                    losingWeight = true;
+                }
+
+                int noOfGoalsExceeded = 0;
+
+                for (int i = 0; i<7; i++) {
+                    System.out.println(items[i]);
+                    if (items[i] > theUI.getProfile().getTargetWeight()) {
+                        noOfGoalsExceeded++;
+                    }
+                }
+
+                String feedback = "";
+
+                if (losingWeight) {
+                    if (noOfGoalsExceeded > 3) {
+                        feedback = "Well done! Keep it up.";
+                    } else {
+                        feedback = "Almost there... aim to stay under your calorie goal more often.";
+                    }
+                } else {
+                    if ((7-noOfGoalsExceeded) > 3) {
+                        feedback = "Well done! Keep it up.";
+                    } else {
+                        feedback = "Almost there... aim to exceed your calorie goal more often.";
+                    }
+                }
+
+                if (losingWeight) {
+                    MotivationText.setText("You've acheived your daily target of staying under " + theUI.getDailyCalories() + " calories " + noOfGoalsExceeded + "/7 times in the last week.\n \n" + feedback);
+                } else {
+                    MotivationText.setText("You've acheived your daily target of exceeding " + theUI.getDailyCalories() + " calories " + (7 - noOfGoalsExceeded) + "/7 times in the last week.\n \n" + feedback);
+                }
+
+                int mostCals = 0;
+                int[] sortedItems = new int[items.length];
+                sortedItems = items;
+                if (!isWeightType) {
+                    for (int i=0;i<sortedItems.length -1;i++) {
+                        for (int j=0;j<sortedItems.length-i-1;j++) {
+                            if (sortedItems[i] > sortedItems[i+1]) {
+                                int temp = sortedItems[i];
+                                sortedItems[i] = sortedItems[i+1];
+                                sortedItems[i+1] = temp;
+                            }
+                        }
+                    }
+                    mostCals = sortedItems[sortedItems.length-1];
+                    currentWeight.setText("The most calories you had in a single day is: " + mostCals);
+                    currentWeight.setGravity(Gravity.CENTER_HORIZONTAL);
+                }
             }
         });
 
@@ -125,12 +193,9 @@ public class WeightTracker extends Fragment{
 
         int[] weights = new int[7];
         DataPoint[] dp = new DataPoint[7];
-
         for (int i = graphPoints.size()-1; i >= 0; i--) {
             weights[i] = graphPoints.get(i).getCalories();
             dp[graphPoints.size()-i-1] = new DataPoint(graphPoints.size()-i-1, weights[i]);
-            System.out.println(i + " " + weights[i]);
-            System.out.println(graphPoints.size());
         }
 
         series = new LineGraphSeries<>(dp);
@@ -143,14 +208,19 @@ public class WeightTracker extends Fragment{
 
         series2.setColor(Color.GREEN);
 
-        System.out.println(target);
-
         graph.addSeries(series);
         graph.addSeries(series2);
+
+        GridLabelRenderer gridLabel = graph.getGridLabelRenderer();
+        gridLabel.setHorizontalAxisTitle("Days");
 
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(6);
 
         graph.getViewport().setXAxisBoundsManual(true);
+
+        MotivationText = (TextView) getView().findViewById(R.id.motivationText);
+        MotivationText.setVisibility(View.INVISIBLE);
+
     }
 }
